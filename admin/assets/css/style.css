@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;900&display=swap');
+
+*{
+	font-family: 'Maven Pro', sans-serif;
+}
+
+
+
+.pagination .page-item.active .page-link {
+ background-color: #248f24; }
+}
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.active .page-link:focus {
+background-color: #33cc33;
+
+
+}
+
+.pagination .page-item.active .page-link:hover {
+background-color: #33cc33; 
+
+
+}
