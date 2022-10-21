@@ -161,7 +161,7 @@ class Admin extends Database{
 
 	//Show All Records
 	public function userIncidentRecords($val){
-		$sql= "SELECT incident_reports.id, incident_reports.title, incident_reports.incident_description, incident_reports.time_reported, incident_reports.time_incident, incident_reports.persons_involved, incident_reports.witness_involved, incident_reports.reported_by, incident_reports.noted_by, incident_reports.created_at, incident_reports.updated_at, users.name, users.email FROM incident_reports INNER JOIN users ON incident_reports.uid = users.id WHERE incident_reports.deleted != $val";
+		$sql= "SELECT incident_reports.id, incident_reports.title, incident_reports.incident_description, incident_reports.time_reported, incident_reports.time_incident, incident_reports.persons_involved, incident_reports.witness_involved, incident_reports.reported_by, incident_reports.noted_by, incident_reports.created_at, incident_reports.action_made, incident_reports.updated_at, users.name, users.email FROM incident_reports INNER JOIN users ON incident_reports.uid = users.id WHERE incident_reports.deleted != $val";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->execute();
 

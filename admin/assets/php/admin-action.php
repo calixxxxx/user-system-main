@@ -403,7 +403,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
  							<th>Witness Involved</th>
  							<th>Incident Description</th>
 							<th>Reported By</th>
-							<th>Noted By</th>
+							<th>Action Taken</th>
 							<th>Actions</th>
  						</tr>
  					</thead>
@@ -418,10 +418,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
 							<td>'.$row['witness_involved'].'</td>
  							<td>'.substr($row['incident_description'],0, 10).'...</td>
 							<td>'.$row['reported_by'].'</td> 
-							<td>'.$row['noted_by'].'</td>
+							<td>'.$row['action_made'].'</td>
  							<td>
  								<a href="#" id="'.$row['id'].'" title="View Details" class="text-success IncinfoBtn"><i class="fas fa-info-circle fa-lg" data-toggle="modal" data-target="#ViewRecordModal"></i>&nbsp;</a>
- 								<a href="#" id="'.$row['id'].'" title="Archive Incident" class="text-danger IncdeleteBtn"><i class="fas fa-folder-open fa-lg"></i></a>
+ 								<a href="#" id="'.$row['id'].'" title="Edit Record" class="text-primary InceditBtn"><i class="fas fa-edit fa-lg" data-toggle="modal" data-target="#editRecordModal"></i></a>&nbsp;
+								<a href="#" id="'.$row['id'].'" title="Archive Incident" class="text-danger IncdeleteBtn"><i class="fas fa-folder-open fa-lg"></i></a>
  							</td>
  						</tr>';
  		}
