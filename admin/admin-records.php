@@ -55,6 +55,9 @@
 		<div class="collapse" id="collapse-referral">
 			<div class="card-body">
 				<button class="dt-button buttons-pdf buttons-html5" style="float: right;" data-button="referralSlip">PDF</button>
+				<div class="btn-group dropleft">
+					<button class="btn btn-light" type="button"  data-toggle="modal" data-target="#addReferralModal"><i class="fas fa-plus-circle fa-lg"></i>&nbsp;Add Referral Slip</button>	
+				</div>
 				<div class="table-responsive" id="showReferral"></div>
 			</div>
 		</div>
@@ -244,6 +247,73 @@
 	</div>
 </div>
 <!-- End View Acceptance Slip -->
+
+<!-- Start referral Slip -->
+<!--Start Add Incident Record -->
+<div class="modal fade" id="addReferralModal">
+ 	<div class="modal-dialog modal-lg">
+ 		<div class="modal-content">
+				<div class="modal-header bg-success">
+					<h4 class="modal-title text-light">Add New Referral Slip</h4>
+					<button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+				</div>
+ 		
+				<div class="modal-body">
+					<form action="#" method="post" id="add-incident-form" class="px-3 form-floating">
+						<input type="hidden" name="rectype" value="Incident" ></input>
+						<div class="d-flex justify-content-xl-between">
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Date Reported</label>
+							<input type="date" name="DTReported" id="date_rp" class="form-control form-control-lg" placeholder="Select Date & Time" required></input>
+			 				</div>	
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Date of Incident</label>
+							<input type="date" name="DTIncident" id="date_inci" class="form-control form-control-lg" placeholder="Select Date & Time" required></input>
+			 				</div>
+			 			</div>
+
+						<div class="d-flex justify-content-xl-between mt-2">
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Persons Involved</label>
+							<input type="text" name="personsInv" class="form-control form-control-lg" placeholder="Enter Name" required></input>
+			 				</div>	
+							<div style=" text-align:right"> 
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px;">Witness Involved</label>
+							<input type="text" name="witnessInv" class="form-control form-control-lg" placeholder="Enter Name" required></input>
+			 				</div>
+			 			</div>
+						<div class="mt-2">
+						<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Brief Description of the Incident</label>
+						<textarea name="description"  class="form-control form-control-lg" placeholder="Write your record" rows="6" required></textarea>							
+			 			</div>
+						
+						<div class="d-flex justify-content-xl-between mt-2">
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Reported By:</label>
+							<input type="text" name="reportedBy" class="form-control form-control-lg" placeholder="Enter Name" required></input>
+			 				</div>	
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Noted By:</label>
+							<input type="text" name="notedBy" value="<?= $cname; ?>" class="form-control form-control-lg" placeholder="Enter Name" disabled></input>
+			 				</div>
+			 			</div>
+
+						<div class="d-flex justify-content-xl-between mt-2">
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Student Number:</label>
+							<input type="number" pattern="[0-9]+" size="9" name="studentNum" class="form-control form-control-lg" placeholder="Enter Student Number" required></input>
+			 				</div>	
+			 			</div>
+					
+						<div class="form-group mt-4">
+							<input type="submit" name="addrecord" id="addIncidentBtn" value="Add Record" class="btn btn-success btn-block btn-lg"></input>
+						</div>
+					</form>
+				</div>
+		</div>
+	</div>
+</div>
+<!-- End referral Slip -->
 	
 
  <!-- Footer Area -->
@@ -305,6 +375,21 @@
  				success:function(response){
  					$("#showAcceptance").html(response);
  					$("#table3").DataTable({
+ 						order: [0, 'desc']
+ 					})
+ 				}
+ 			});
+ 			}
+
+			 fetchReferral();
+ 			function fetchReferral(){
+ 			$.ajax({
+ 				url: 'assets/php/admin-action.php',
+ 				method: 'post',
+ 				data: { action: 'fetchReferral' },
+ 				success:function(response){
+ 					$("#showReferral").html(response);
+ 					$("#table4").DataTable({
  						order: [0, 'desc']
  					})
  				}

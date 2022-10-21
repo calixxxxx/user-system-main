@@ -526,6 +526,50 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
 			echo '<h3 class="text-center text-secondary"> You have no Records </h3>';
 		}
 	}
+
+	// Display Acceptance Records
+	if(isset($_POST['action']) && $_POST['action'] == 'fetchReferral'){
+		$output = '';
+
+		$record = $admin->referralRecords(0);
+
+		if($record){
+			$output .= '<table class="table table-striped table-bordered text-center" id="table" style="width:100%">
+ 					<thead>
+ 						<tr>
+ 							<th data-visible="false">Record ID</th>
+ 							<th>Title</th>
+							<th>Date</th> 
+ 							<th>Student Name</th>
+ 							<th>Student Violation </th>
+ 							<th>Allow Class</th>
+ 							<th>Allow Phone</th>
+							<th>Actions</th>
+ 						</tr>
+ 					</thead>
+ 					<tbody>';
+ 		foreach($record as $row){
+ 			$output .= '<tr>
+ 							<td>'.$row['id'].'</td>							
+ 							<td>'.$row['title']. ' - ' .$row['name_student'].'</td>
+ 							<td>'.$row['date_reported'].'</td>
+ 							<td>'.$row['name_student'].'</td>
+							<td>'.$row['student_violation'].'</td>
+							<td>'.$row['allow_class'].'</td>
+							<td>'.$row['allow_phone'].'</td>
+ 							<td>
+ 								<a href="#" id="'.$row['id'].'" title="View Details" class="text-success AccinfoBtn"><i class="fas fa-info-circle fa-lg" data-toggle="modal" data-target="#viewAcceptanceModal"></i>&nbsp;</a>
+ 								<a href="#" id="'.$row['id'].'" title="Archive Acceptance" class="text-danger AccdeleteBtn"><i class="fas fa-folder-open fa-lg"></i></a>
+ 							</td>
+ 						</tr>';
+ 		}
+ 		$output .='</tbody></table>';
+ 		echo $output;
+		}
+		else{
+			echo '<h3 class="text-center text-secondary"> You have no Records </h3>';
+		}
+	}
 	// Fetch Latest Incident Records
 	if(isset($_POST['action']) && $_POST['action'] == 'LatestIncidentRecords'){
 		$output = '';

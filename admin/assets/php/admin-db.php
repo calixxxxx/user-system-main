@@ -187,6 +187,17 @@ class Admin extends Database{
 
 		return $result;
 	}
+
+	public function referralRecords($val){
+		$sql= "SELECT * FROM referral_reports";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $result;
+	}
+
 	//Show Latest Incident Records
 	public function LatestIncidentRecords($val){
 		$sql= "SELECT incident_reports.id, incident_reports.title, incident_reports.reported_by, incident_reports.uid, users.name, users.email FROM incident_reports INNER JOIN users ON incident_reports.uid = users.id WHERE incident_reports.deleted != $val ORDER BY id desc LIMIT 5";
