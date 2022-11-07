@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `acceptance_reports` (
   CONSTRAINT `acceptance_uid` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table db_user_system.acceptance_reports: ~16 rows (approximately)
+-- Dumping data for table db_user_system.acceptance_reports: ~17 rows (approximately)
 /*!40000 ALTER TABLE `acceptance_reports` DISABLE KEYS */;
 INSERT INTO `acceptance_reports` (`id`, `uid`, `title`, `student_num`, `date_reported`, `name_student`, `student_violation`, `allow_class`, `allow_phone`, `recorded_by`, `created_at`, `updated_at`, `deleted`) VALUES
 	(1, 11, '', '201516354', '2021-12-29', 'Clint Jeremy', '', 'Yes', 'No', NULL, '2022-01-07 17:56:08', '2022-01-07 17:56:08', 0),
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `all_events` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table db_user_system.all_events: ~1 rows (approximately)
+-- Dumping data for table db_user_system.all_events: ~2 rows (approximately)
 /*!40000 ALTER TABLE `all_events` DISABLE KEYS */;
 INSERT INTO `all_events` (`id`, `subject`, `event`, `date`, `created_at`) VALUES
 	(4, 'MEETING FOR THE EVENTS THIS WEEKEEND', 'STAFF MEETING', '2022-05-26', '2022-05-25 18:40:27'),
@@ -150,6 +150,7 @@ CREATE TABLE IF NOT EXISTS `incident_reports` (
   `incident_description` varchar(255) DEFAULT NULL,
   `reported_by` varchar(255) DEFAULT NULL,
   `noted_by` varchar(255) DEFAULT NULL,
+  `action_made` varchar(255) DEFAULT 'No Actions Yet',
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
   `deleted` int(11) DEFAULT 1,
@@ -158,20 +159,20 @@ CREATE TABLE IF NOT EXISTS `incident_reports` (
   CONSTRAINT `incident_uid` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table db_user_system.incident_reports: ~9 rows (approximately)
+-- Dumping data for table db_user_system.incident_reports: ~11 rows (approximately)
 /*!40000 ALTER TABLE `incident_reports` DISABLE KEYS */;
-INSERT INTO `incident_reports` (`id`, `uid`, `title`, `student_num`, `time_reported`, `time_incident`, `persons_involved`, `witness_involved`, `incident_description`, `reported_by`, `noted_by`, `created_at`, `updated_at`, `deleted`) VALUES
-	(2, 11, 'Incident Report', '201516354', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-	(3, 11, 'Incident Report', '201516354', '2021-10-31', '2021-11-24', 'Bare222', 'n/a', 'Nagnakaw nang candy', 'ARWIND SANTOS', 'Jimmy Alapag', NULL, '2022-03-15 13:50:54', 0),
-	(4, 11, 'Incident Report', '201516354', '2021-12-15', '2021-12-23', 'Clint JEremy Bare', 'Calixdasdsa', 'Nagsuntukan sa labas', 'Juan Sanchez', 'sadasdas', '2021-12-15 00:08:17', '2022-02-03 20:44:30', 0),
-	(5, 11, 'Incident Report', '201516354', '2022-03-25', '2022-03-15', 'Arwind', 'Calixta', 'test', 'dsadasdsa', 'dasdasdasaaa', '2022-03-03 21:23:43', '2022-03-03 21:23:43', 0),
-	(6, 11, 'Incident Report', '201516354', '2022-03-14', '2022-03-03', 'Clint', 'Jeremy', 'TEST TEST', 'BARE', 'BARE', '2022-03-03 21:25:17', '2022-03-03 21:25:17', 0),
-	(7, 11, 'Incident Report', '201516354', '2022-03-23', '2022-03-03', 'Marciano', 'Del Pilar', 'Any illness or injury that impacts an employee’s ability to work must be noted. The specifics of what is required by law to be included in an incident report will vary depending on the federal or provincial legislation that affects your workplace', 'Luna', 'Juan', '2022-03-03 21:26:02', '2022-04-21 13:46:48', 1),
-	(8, 11, 'Incident Report', '201516354', '2022-03-25', '2022-03-09', 'J. Rizal', 'Gomburza', 'An incident report is a form to document all workplace illnesses, injuries, near misses and accidents. An incident report should be completed at the time an incident occurs no matter how minor an injury is.', 'Ramos', 'Lopez', '2022-03-29 14:37:22', '2022-04-21 13:45:57', 1),
-	(10, 11, 'Incident Report', '202212345', '2022-06-01', '2022-05-03', 'John Lee', 'Mike Oxmol', 'An incident report is a tool that documents any event that may or may not have caused injuries to a person or damage to a company asset. It is used to capture injuries and accidents, near misses, property and equipment damage, health and safety issues, se', 'Mike Oxmol', '', '2022-06-10 16:45:04', '2022-06-10 16:45:04', 1),
-	(11, 11, 'Incident Report', '312312321312', '2022-06-03', '2022-06-15', 'dsad', 'asdsads', 'adsadsadsa', 'dsadas', '', '2022-06-23 11:33:18', '2022-06-23 11:33:18', 1),
-	(12, 11, 'Incident Report', '321321312312', '2022-06-22', '2022-06-13', 'dsad', 'sadas', 'dsadsadsa', 'dsadsa', 'Clint Jeremy', '2022-06-23 11:35:19', '2022-06-23 11:35:19', 1),
-	(13, 11, 'Incident', '312321312312', '2022-06-21', '2022-06-21', 'dsadsa', 'dasdsa', 'dsadsadsa', 'dsadsa', 'Clint Jeremy', '2022-06-23 11:37:07', '2022-06-23 11:37:07', 1);
+INSERT INTO `incident_reports` (`id`, `uid`, `title`, `student_num`, `time_reported`, `time_incident`, `persons_involved`, `witness_involved`, `incident_description`, `reported_by`, `noted_by`, `action_made`, `created_at`, `updated_at`, `deleted`) VALUES
+	(2, 11, 'Incident Report', '201516354', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+	(3, 11, 'Incident Report', '201516354', '2021-10-31', '2021-11-24', 'Bare222', 'n/a', 'Nagnakaw nang candy', 'ARWIND SANTOS', 'Jimmy Alapag', NULL, NULL, '2022-03-15 13:50:54', 0),
+	(4, 11, 'Incident Report', '201516354', '2021-12-15', '2021-12-23', 'Clint JEremy Bare', 'Calixdasdsa', 'Nagsuntukan sa labas', 'Juan Sanchez', 'sadasdas', NULL, '2021-12-15 00:08:17', '2022-02-03 20:44:30', 0),
+	(5, 11, 'Incident Report', '201516354', '2022-03-25', '2022-03-15', 'Arwind', 'Calixta', 'test', 'dsadasdsa', 'dasdasdasaaa', NULL, '2022-03-03 21:23:43', '2022-03-03 21:23:43', 0),
+	(6, 11, 'Incident Report', '201516354', '2022-03-14', '2022-03-03', 'Clint', 'Jeremy', 'TEST TEST', 'BARE', 'BARE', NULL, '2022-03-03 21:25:17', '2022-03-03 21:25:17', 0),
+	(7, 11, 'Incident Report', '201516354', '2022-03-23', '2022-03-03', 'Marciano', 'Del Pilar', 'Any illness or injury that impacts an employee’s ability to work must be noted. The specifics of what is required by law to be included in an incident report will vary depending on the federal or provincial legislation that affects your workplace', 'Luna', 'Juan', NULL, '2022-03-03 21:26:02', '2022-04-21 13:46:48', 1),
+	(8, 11, 'Incident Report', '201516354', '2022-03-25', '2022-03-09', 'J. Rizal', 'Gomburza', 'An incident report is a form to document all workplace illnesses, injuries, near misses and accidents. An incident report should be completed at the time an incident occurs no matter how minor an injury is.', 'Ramos', 'Lopez', NULL, '2022-03-29 14:37:22', '2022-04-21 13:45:57', 1),
+	(10, 11, 'Incident Report', '202212345', '2022-06-01', '2022-05-03', 'John Lee', 'Mike Oxmol', 'An incident report is a tool that documents any event that may or may not have caused injuries to a person or damage to a company asset. It is used to capture injuries and accidents, near misses, property and equipment damage, health and safety issues, se', 'Mike Oxmol', '', NULL, '2022-06-10 16:45:04', '2022-06-10 16:45:04', 1),
+	(11, 11, 'Incident Report', '312312321312', '2022-06-03', '2022-06-15', 'dsad', 'asdsads', 'adsadsadsa', 'dsadas', '', NULL, '2022-06-23 11:33:18', '2022-06-23 11:33:18', 1),
+	(12, 11, 'Incident Report', '321321312312', '2022-06-22', '2022-06-13', 'dsad', 'sadas', 'dsadsadsa', 'dsadsa', 'Clint Jeremy', NULL, '2022-06-23 11:35:19', '2022-06-23 11:35:19', 1),
+	(13, 11, 'Incident', '312321312312', '2022-06-21', '2022-06-21', 'dsadsa', 'dasdsa', '12345', 'dsadsa', 'Clint Jeremy', 'For Endorsement', '2022-06-23 11:37:07', '2022-11-07 20:37:03', 1);
 /*!40000 ALTER TABLE `incident_reports` ENABLE KEYS */;
 
 -- Dumping structure for table db_user_system.notification
@@ -184,9 +185,9 @@ CREATE TABLE IF NOT EXISTS `notification` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=601 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=604 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table db_user_system.notification: ~293 rows (approximately)
+-- Dumping data for table db_user_system.notification: ~343 rows (approximately)
 /*!40000 ALTER TABLE `notification` DISABLE KEYS */;
 INSERT INTO `notification` (`id`, `uid`, `type`, `message`, `created_at`) VALUES
 	(116, 17, 'user', 'How are you', '2021-05-25 17:04:43'),
@@ -530,7 +531,10 @@ INSERT INTO `notification` (`id`, `uid`, `type`, `message`, `created_at`) VALUES
 	(597, 11, 'admin', 'Record Deleted', '2022-06-23 11:57:06'),
 	(598, 11, 'admin', 'Record Deleted', '2022-06-23 11:57:08'),
 	(599, 11, 'admin', 'Record Deleted', '2022-06-23 11:57:10'),
-	(600, 11, 'admin', 'Record Deleted', '2022-06-23 11:57:12');
+	(600, 11, 'admin', 'Record Deleted', '2022-06-23 11:57:12'),
+	(601, 11, 'admin', 'New Record Added', '2022-08-19 18:22:04'),
+	(602, 11, 'admin', 'Incident Report Updated', '2022-11-07 20:00:16'),
+	(603, 11, 'admin', 'Incident Report Updated', '2022-11-07 20:34:38');
 /*!40000 ALTER TABLE `notification` ENABLE KEYS */;
 
 -- Dumping structure for table db_user_system.record_counts
@@ -540,7 +544,7 @@ CREATE TABLE IF NOT EXISTS `record_counts` (
   `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table db_user_system.record_counts: ~23 rows (approximately)
 /*!40000 ALTER TABLE `record_counts` DISABLE KEYS */;
@@ -567,7 +571,8 @@ INSERT INTO `record_counts` (`id`, `title`, `created_at`, `updated_at`) VALUES
 	(20, 'Acceptance', '2022-06-23 11:49:12', '2022-06-23 11:49:12'),
 	(21, 'Acceptance', '2022-06-23 11:55:04', '2022-06-23 11:55:04'),
 	(22, 'Acceptance', '2022-06-23 11:55:25', '2022-06-23 11:55:25'),
-	(23, 'Acceptance', '2022-06-23 11:56:29', '2022-06-23 11:56:29');
+	(23, 'Acceptance', '2022-06-23 11:56:29', '2022-06-23 11:56:29'),
+	(24, 'Good Moral', '2022-08-19 18:22:04', '2022-08-19 18:22:04');
 /*!40000 ALTER TABLE `record_counts` ENABLE KEYS */;
 
 -- Dumping structure for table db_user_system.record_types
@@ -606,7 +611,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table db_user_system.users: ~10 rows (approximately)
+-- Dumping data for table db_user_system.users: ~7 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `student_number`, `password`, `phone`, `gender`, `dob`, `photo`, `token`, `token_expired`, `created_at`, `verified`, `deleted`) VALUES
 	(11, 'Clint Jeremy', 'test5@gmail.com', '201516354', '$2y$10$MVruymcQ.4uUkmJPWDtzC.yS9SClbW6k2sa1CNeUN8c/HJJRSh7eO', '09275011696', 'Male', '1997-11-11', 'uploads/1522021.jpg', '', '2022-06-18 17:23:09', '2021-03-09 16:43:59', 1, 1),
@@ -627,7 +632,7 @@ CREATE TABLE IF NOT EXISTS `visitors` (
 -- Dumping data for table db_user_system.visitors: ~0 rows (approximately)
 /*!40000 ALTER TABLE `visitors` DISABLE KEYS */;
 INSERT INTO `visitors` (`id`, `hits`) VALUES
-	(0, 876);
+	(0, 887);
 /*!40000 ALTER TABLE `visitors` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
