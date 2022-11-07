@@ -161,12 +161,29 @@ class Admin extends Database{
 
 	//Show All Records
 	public function userIncidentRecords($val){
-		$sql= "SELECT incident_reports.id, incident_reports.title, incident_reports.incident_description, incident_reports.time_reported, incident_reports.time_incident, incident_reports.persons_involved, incident_reports.witness_involved, incident_reports.reported_by, incident_reports.noted_by, incident_reports.created_at, incident_reports.action_made, incident_reports.updated_at, users.name, users.email FROM incident_reports INNER JOIN users ON incident_reports.uid = users.id WHERE incident_reports.deleted != $val";
+		$sql= "SELECT incident_reports.id, incident_reports.title, incident_reports.incident_description, incident_reports.time_reported, incident_reports.time_incident, incident_reports.persons_involved, incident_reports.witness_involved, incident_reports.reported_by, incident_reports.created_at, incident_reports.updated_at, users.name, users.email FROM incident_reports INNER JOIN users ON incident_reports.uid = users.id WHERE incident_reports.deleted != $val";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->execute();
 
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+		return $result;
+	}
+	// Update Incident Reports
+	public function edit_incident_reports($id, $DTReported, $DTIncident, $personsInv, $witnessInv, $description, $reportedBy, $notedBy, $actionMade){
+		$sql = "UPDATE incident_reports SET time_reported = :time_reported, time_incident = :time_incident, persons_involved = :persons_involved, witness_involved = :witness_involved, incident_description = :incident_description, reported_by = :reported_by, action_made = :action_made, updated_at = NOW() WHERE id = :id AND deleted != 0";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute(['id'=>$id, 'time_reported'=>$DTReported, 'time_incident'=>$DTIncident, 'persons_involved'=>$personsInv, 'witness_involved'=>$witnessInv, 'incident_description'=>$description, 'reported_by'=>$reportedBy,'action_made'=>$actionMade]);
+		return true;
+	}
+
+	// Edit Incident Record of User
+	public function edit_incident($id){
+		$sql = "SELECT * FROM incident_reports WHERE id = :id";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute(['id'=>$id]);
+
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $result;
 	}
 	public function userConsultationRecords($val){

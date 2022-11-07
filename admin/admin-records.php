@@ -177,6 +177,82 @@
 </div>
 <!--End View Consultation Record -->
 
+<!-- Edit Incident Record Start -->
+<div class="modal fade" id="editRecordModal2">
+ 	<div class="modal-dialog modal-lg">
+ 		<div class="modal-content">
+				<div class="modal-header bg-success">
+					<h4 class="modal-title text-light" id="title">Edit Incident Report</h4>
+					<button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+				</div>
+ 		
+				<div class="modal-body">
+					<form action="#" method="post" id="edit-incident-form" class="px-3 form-floating">
+						<input type="hidden"  name="inc_id" id="inc_id">
+						<div class="d-flex justify-content-xl-between">
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Date Reported</label>
+							<input id="date_reported" type="date" name="DTReported" class="form-control form-control-lg" placeholder="Select Date & Time" required></input>
+			 				</div>	
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Date Incident</label>
+							<input id="date_incident" type="date" name="DTIncident" class="form-control form-control-lg" placeholder="Select Date & Time" required></input>
+			 				</div>
+			 			</div>
+
+						<div class="d-flex justify-content-xl-between mt-2">
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Persons Involved</label>
+							<input id="persons_involved" type="text" name="personsInv" class="form-control form-control-lg" placeholder="Enter Name" required></input>
+			 				</div>	
+							<div style=" text-align:right"> 
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px;">Witness Involved</label>
+							<input id="witness_involved" type="text" name="witnessInv" class="form-control form-control-lg" placeholder="Enter Name" required></input>
+			 				</div>
+			 			</div>
+						<div class="mt-2">
+						<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Brief Description of the Incident</label>
+						<textarea id="desc_incident" name="description"  class="form-control form-control-lg" placeholder="Write your record" rows="6" required></textarea>							
+			 			</div>
+						<div class="d-flex justify-content-xl-between mt-2">
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Reported By:</label>
+							<input id="reported_by" type="text" name="reportedBy" class="form-control form-control-lg" placeholder="Enter Name" required></input>
+			 				</div>	
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Noted By:</label>
+							<input id="noted_by" type="text" name="incident_noted" class="form-control form-control-lg" placeholder="Enter Name" disabled></input>
+			 				</div>
+			 			</div>
+
+						<div class="d-flex justify-content-lg-between mt-2">
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Student Number:</label>
+							<input id="student_num4" type="number" pattern="[0-9]+" size="9" name="student_num4" class="form-control form-control-lg" placeholder="Enter Student Number" required></input>
+							</div>
+							<div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Action Made:</label>
+							<select id="action_made" name="action_made" class="form-control form-control-lg" data-select="report">
+										
+										<option value="No Action Yet" <?php if( $NoActionYet == 'No Action Yet'){echo 'selected';} ?>>No Action Yet</option>
+										<option value="For Endorsement" <?php if( $ForEndo == 'For Endorsement'){echo 'selected';} ?>>For Endorsement</option>
+										<option value="Counseled" <?php if( $Counseled == 'Counseled'){echo 'selected';} ?>>Counseled</option>
+									</select>
+			 				</div>	
+			 			</div>
+					
+						<div class="form-group mt-4">
+							<input type="submit" name="editrecord" id="editRecordBtn" value="Update Record" class="btn btn-success btn-block btn-lg"></input>
+						</div>
+					</form>
+				</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Edit Incident Record Test End -->
+
 <!-- Start View Acceptance Slip -->
 <div class="modal fade" id="viewAcceptanceModal">
  	<div class="modal-dialog modal-lg">
@@ -344,6 +420,7 @@
  				method: 'post',
  				data: { action: 'fetchIncident' },
  				success:function(response){
+					// console.log(response);
  					$("#showIncident").html(response);
  					$("#table").DataTable({
  						order: [0, 'desc']
@@ -505,6 +582,7 @@
 			});
 
 		// View Incident Record
+		fetchIncident();
 		$("body").on("click", ".IncinfoBtn", function(e){
 			e.preventDefault();
 
@@ -526,6 +604,59 @@
 					$("#noted_by2").val(data.noted_by);
 				}
 			});
+		});
+		// Edit Incident Button Ajax
+		fetchIncident();
+		$("body").on("click", ".InceditBtn", function(e){
+			e.preventDefault();
+
+			edit_id = $(this).attr('id');
+			$.ajax({
+				url: 'assets/php/admin-action.php',
+				method: 'post',
+				data: { edit_id: edit_id },
+				success:function(response){
+					data = JSON.parse(response);
+					console.log(data);
+					$("#inc_id").val(data.id);
+					$("#title").val(data.title);
+					$("#date_reported").val(data.time_reported);
+					$("#date_incident").val(data.time_incident);
+					$("#persons_involved").val(data.persons_involved);
+					$("#witness_involved").val(data.witness_involved);
+					$("#desc_incident").val(data.incident_description);
+					$("#reported_by").val(data.reported_by);
+					$("#noted_by").val(data.noted_by);
+					$("#student_num4").val(data.student_num);
+					$("#action_made").val(data.action_made);
+					
+				}
+			});
+		});
+
+		// Edit Incident Record Ajax
+		$("#editRecordBtn").click(function(e){
+			if($("#edit-incident-form")[0].checkValidity()){
+				e.preventDefault();
+
+				$.ajax({
+					url: 'assets/php/admin-action.php',
+					method: 'post',
+					data: $("#edit-incident-form").serialize()+"&action=update_incident",
+					success:function(response){
+						console.log(response)
+						Swal.fire({
+							title: 'Record Updated Succesfully',
+							type: 'success'
+						});
+						$("#edit-incident-form")[0].reset();
+						$("#editRecordModal2").modal('hide');
+						fetchIncident();
+						
+					}
+
+				});
+			}
 		});
 
 		// View Consult Record

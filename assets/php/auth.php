@@ -233,9 +233,9 @@
 		// 	return true;
 		// }
 		public function edit_incident_reports($id, $DTReported, $DTIncident, $personsInv, $witnessInv, $description, $reportedBy, $notedBy){
-			$sql = "UPDATE incident_reports SET time_reported = :time_reported, time_incident = :time_incident, persons_involved = :persons_involved, witness_involved = :witness_involved, incident_description = :incident_description, reported_by = :reported_by, noted_by = :noted_by, updated_at = NOW() WHERE id = :id AND deleted != 0";
+			$sql = "UPDATE incident_reports SET time_reported = :time_reported, time_incident = :time_incident, persons_involved = :persons_involved, witness_involved = :witness_involved, incident_description = :incident_description, reported_by = :reported_by, updated_at = NOW() WHERE id = :id AND deleted != 0";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute(['id'=>$id, 'time_reported'=>$DTReported, 'time_incident'=>$DTIncident, 'persons_involved'=>$personsInv, 'witness_involved'=>$witnessInv, 'incident_description'=>$description, 'reported_by'=>$reportedBy, 'noted_by'=>$notedBy]);
+			$stmt->execute(['id'=>$id, 'time_reported'=>$DTReported, 'time_incident'=>$DTIncident, 'persons_involved'=>$personsInv, 'witness_involved'=>$witnessInv, 'incident_description'=>$description, 'reported_by'=>$reportedBy]);
 			return true;
 		}
 		// Update Consultation Record User

@@ -17,7 +17,10 @@
  	$title = explode('-', $title);
  	$title = ucfirst($title[1]);
 	
- 	
+ 	$NoActionYet = 'No Action Yet';
+	$ForEndo = 'For Endorsement';
+	$Counseled = 'Counseled';
+
 
  	 ?>
  	<title><?= $title; ?> Admin Panel</title>

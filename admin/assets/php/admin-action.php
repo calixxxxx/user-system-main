@@ -130,6 +130,32 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
 		echo json_encode($row);
 	}
 
+	// Edit Incident Records Ajax Request
+	if(isset($_POST['edit_id'])){
+		$id = $_POST['edit_id'];
+
+		$row = $admin->edit_incident($id);
+		echo json_encode($row);
+	}
+
+	// Update Incident record Ajax Request
+	if(isset($_POST['action']) && $_POST['action'] == 'update_incident'){
+		$inc_id 		= $admin->test_input($_POST['inc_id']);
+		$DTReported 	= $admin->test_input($_POST['DTReported']);
+		$DTIncident 	= $admin->test_input($_POST['DTIncident']);
+		$personsInv 	= $admin->test_input($_POST['personsInv']);
+		$witnessInv 	= $admin->test_input($_POST['witnessInv']);
+		$description 	= $admin->test_input($_POST['description']);
+		$reportedBy 	= $admin->test_input($_POST['reportedBy']);
+		$notedBy 		= $admin->test_input($_POST['incident_noted']);
+		$actionMade		= $admin->test_input($_POST['action_made']);
+		print("BOBO");
+		print($notedBy);
+		$row = $admin->edit_incident_reports($inc_id, $DTReported, $DTIncident, $personsInv, $witnessInv, $description, $reportedBy, $notedBy, $actionMade);
+		$admin->notification($inc_id,  'admin','Incident Report Updated');
+		
+	}
+
 	// View User Consultation Ajax Request
 	if(isset($_POST['consult_id'])){
 		$id = $_POST['consult_id'];
@@ -404,7 +430,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
  							<th>Incident Description</th>
 							<th>Reported By</th>
 							<th>Action Taken</th>
-							<th>Actions</th>
+							
  						</tr>
  					</thead>
  					<tbody>';
@@ -418,10 +444,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
 							<td>'.$row['witness_involved'].'</td>
  							<td>'.substr($row['incident_description'],0, 10).'...</td>
 							<td>'.$row['reported_by'].'</td> 
-							<td>'.$row['action_made'].'</td>
+							
  							<td>
  								<a href="#" id="'.$row['id'].'" title="View Details" class="text-success IncinfoBtn"><i class="fas fa-info-circle fa-lg" data-toggle="modal" data-target="#ViewRecordModal"></i>&nbsp;</a>
- 								<a href="#" id="'.$row['id'].'" title="Edit Record" class="text-primary InceditBtn"><i class="fas fa-edit fa-lg" data-toggle="modal" data-target="#editRecordModal"></i></a>&nbsp;
+ 								<a href="#" id="'.$row['id'].'" title="Edit Record" class="text-primary InceditBtn"><i class="fas fa-edit fa-lg" data-toggle="modal" data-target="#editRecordModal2"></i></a>&nbsp;
 								<a href="#" id="'.$row['id'].'" title="Archive Incident" class="text-danger IncdeleteBtn"><i class="fas fa-folder-open fa-lg"></i></a>
  							</td>
  						</tr>';
