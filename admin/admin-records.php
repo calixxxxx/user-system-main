@@ -325,7 +325,7 @@
 <!-- End View Acceptance Slip -->
 
 <!-- Start referral Slip -->
-<!--Start Add Incident Record -->
+<!--Start Add Referral Record -->
 <div class="modal fade" id="addReferralModal">
  	<div class="modal-dialog modal-lg">
  		<div class="modal-content">
@@ -335,55 +335,107 @@
 				</div>
  		
 				<div class="modal-body">
-					<form action="#" method="post" id="add-incident-form" class="px-3 form-floating">
-						<input type="hidden" name="rectype" value="Incident" ></input>
-						<div class="d-flex justify-content-xl-between">
-							<div>
-							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Date Reported</label>
-							<input type="date" name="DTReported" id="date_rp" class="form-control form-control-lg" placeholder="Select Date & Time" required></input>
-			 				</div>	
-							<div>
-							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Date of Incident</label>
-							<input type="date" name="DTIncident" id="date_inci" class="form-control form-control-lg" placeholder="Select Date & Time" required></input>
+					<form action="#" method="post" id="add-referral-form" class="px-3 form-floating">
+					<input type="hidden" name="rectype" value="Referral" ></input>
+						<!-- <div class="d-flex justify-content-xl-start">
+							<div class="mt-2">
+								<label class="badge badge-success mt-2" style="font-weight: bold;font-size: 15px">Date</label>
+								<input type="date" name="date-ref" id="date-referral" class="form-control input-sm"required></input>
 			 				</div>
-			 			</div>
+			 			</div> -->
 
-						<div class="d-flex justify-content-xl-between mt-2">
-							<div>
-							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Persons Involved</label>
-							<input type="text" name="personsInv" class="form-control form-control-lg" placeholder="Enter Name" required></input>
-			 				</div>	
-							<div style=" text-align:right"> 
-							<label class="badge badge-success" style="font-weight: bold;font-size: 20px;">Witness Involved</label>
-							<input type="text" name="witnessInv" class="form-control form-control-lg" placeholder="Enter Name" required></input>
-			 				</div>
-			 			</div>
-						<div class="mt-2">
-						<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Brief Description of the Incident</label>
-						<textarea name="description"  class="form-control form-control-lg" placeholder="Write your record" rows="6" required></textarea>							
-			 			</div>
 						
-						<div class="d-flex justify-content-xl-between mt-2">
+						<div class= "d-flex justify-content-lg-start mt-2">
 							<div>
-							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Reported By:</label>
-							<input type="text" name="reportedBy" class="form-control form-control-lg" placeholder="Enter Name" required></input>
-			 				</div>	
-							<div>
-							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Noted By:</label>
-							<input type="text" name="notedBy" value="<?= $cname; ?>" class="form-control form-control-lg" placeholder="Enter Name" disabled></input>
+								<label style="font-size: 18px">To the <b>GUIDANCE COUNSELOR</b></label>
 			 				</div>
+							<!-- <div>
+								<input type="text" name="student-name" class="form-control input-sm" required></input>	
+			 				</div>				 -->
+						</div>	
+
+						<div class= "d-flex justify-content-lg-start mt-2">
+							<div>
+								<label style="font-size: 18px">This is to refer the student</b></label>
+			 				</div>
+							<div class=".col-sm-2 ml-2">
+							 <input type="text" id="refFirstN" name="first_name" placeholder="First Name" class="form-control input-sm" required></input>	
+							</div>
+							<div class=".col-sm-2">
+							 <input type="text" id="refLastN" name="last_name" placeholder="Last Name" class="form-control input-sm" required></input>	
+							</div>
+						</div>
+						<div class= "d-flex justify-content-lg-center mt-2">
+							
+							<div class=".col-sm-2 ml-2">
+							<select required class="form-control form-control-sm" name= "refCourse" aria-label="Default select example">
+								<option selected disabled>Course</option>
+								<option value="BSOA">Bachelor of Science in Office Administration (BSOA)</option>
+										<option id="refCourse1" name="refCourse" value="BSIT">Bachelor of Science in Information Technology (BSIT)</option>
+										<option id="refCourse1" name="refCourse" value="BSCS">Bachelor of Science in Computer Science (BSCS)</option>
+										<option id="refCourse1" name="refCourse" value="BSArchi">Bachelor of Science in Architecture (BSArchi)</option>
+										<option id="refCourse1" name="refCourse" value="BSABE">Bachelor of Science in Agricultural and Biosystems Engineering (BSABE)</option>
+										<option id="refCourse1" name="refCourse" value="BSCE">Bachelor of Science in Civil Engineering (BSCE)</option>
+										<option id="refCourse1" name="refCourse" value="BSEE">Bachelor of Science in Electrical Engineering (BSEE)</option>
+										<option id="refCourse1" name="refCourse" value="BSCpE">Bachelor of Science in Computer Engineering (BSCpE)</option>
+										<option id="refCourse1" name="refCourse" value="BSECE">Bachelor of Science in Electronics and Communication Engineering (BSECE)</option>
+										<option id="refCourse1" name="refCourse" value="BSIE">Bachelor of Science in Industrial Engineering (BSIE)</option>
+										<option id="refCourse1" name="refCourse" value="BSIndt-ET">Bachelor of Industrial Technology major in Electrical Technology (BS Indt- ET)</option>
+										<option id="refCourse1" name="refCourse" value="BSIndt-AT">Bachelor of Industrial Technology major in Automotive Technology (BS Indt- AT)</option>
+										<option id="refCourse1" name="refCourse" value="BSIndt-ELEX">Bachelor of Industrial Technology major in Electronics (BS Indt- ELEX)</option>
+							</select>	
+							</div>
+							<div class=".col-sm-2">
+							<select required class="form-control form-control-sm" name="refYear" aria-label="Default select example">
+								<option selected disabled>Year</option>
+								<option id="refYear1" name="refYear" value="First Year">First Year</option>
+								<option id="refYear1" name="refYear" value="Second Year">Second Year</option>
+								<option id="refYear1" name="refYear" value="Third Year">Third Year</option>
+								<option id="refYear1" name="refYear" value="Fourth Year">Fourth Year</option>
+								<option id="refYear1" name="refYear" value="Fifth Year">Fifth Year</option>
+							</select>	
+							</div>
+						</div>
+
+						<div>
+							<div>
+								<label style="font-size: 18px">to your office for counselling. Reason for referral, please select one:</b></label>
+			 				</div>
+
+							<select required class="form-control form-control-sm" name="refReason" aria-label="Default select example">
+								<option selected disabled>Open this select menu</option>
+								<option id="refReason1" name="refReason" value="Academic Concern">Academic Concern</option>
+								<option id="refReason1" name="refReason" value="Behaviour maladjustment">Behaviour maladjustment</option>
+								<option id="refReason1" name="refReason" value="Violation to school rules">Violation to school rules</option>
+								<option id="refReason1" name="refReason" value="Other Concern, Specify below">Other Concern, Specify below</option>
+							</select>
 			 			</div>
 
-						<div class="d-flex justify-content-xl-between mt-2">
-							<div>
-							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Student Number:</label>
-							<input type="number" pattern="[0-9]+" size="9" name="studentNum" class="form-control form-control-lg" placeholder="Enter Student Number" required></input>
-			 				</div>	
-			 			</div>
-					
-						<div class="form-group mt-4">
-							<input type="submit" name="addrecord" id="addIncidentBtn" value="Add Record" class="btn btn-success btn-block btn-lg"></input>
+
+						<div class="mb-3">
+							<label class="form-label mt-2" required>Incident Report:</label>
+							<textarea class="form-control" id="incident_desc" name="incident_desc" rows="3"></textarea>
 						</div>
+
+						<div class= "d-flex justify-content-lg-between mt-2">
+							<div>
+								<label style="font-size: 20px">Thank You&nbsp;</label>
+			 				</div>
+							
+						</div>
+						<div class= "d-flex justify-content-lg-between mt-2">
+							<div>
+								<label class="form-label mt-n1" style="border-top: 1px solid black;font-size: 10px">Signature Over Printed Name of Faculty/Employee</label>
+							</div>
+							<div>
+								<label class="form-label mt-n1" style="font-size: 10px">Acknowledge by: _________________</label>
+							</div>
+						</div>
+
+						<div class="form-group d-flex justify-content-lg-center mt-4">
+							<input type="submit" name="addreferral" id="addReferralBtn" value="Add Record" class="btn btn-success btn-block btn-lg"></input>
+						</div>
+
 					</form>
 				</div>
 		</div>
@@ -707,8 +759,50 @@
 			});
 		});
 
-		
+		// Submit Referral Slip
+		$("#addReferralBtn").click(function(e){
+			if($("#add-referral-form")[0].checkValidity()){
+				e.preventDefault();
 
+				//$("#addIncidentBtn").val('Processing...');
+
+				$.ajax({
+					url: 'assets/php/admin-action.php',
+					method: 'post',
+					data: $("#add-referral-form").serialize()+'&action=add_referral',
+					success: function(response){
+						$("#add-referral-form")[0].reset();
+						// $("#addReferralModal").modal('hide');
+						console.log(response);
+						Swal.fire({
+							title: 'Record Added Succesfully',
+							type: 'success'
+						});
+						
+						
+						displayreferral();
+					}
+				});
+			}
+		});
+
+		displayreferral();
+		function displayreferral(){
+			$.ajax({
+				url: 'assets/php/admin-action.php',
+				method: 'post',
+				data: { action: 'fetchReferral'},
+				success:function(response){
+					
+					$("#showReferral").html(response);
+
+					$("#table4").DataTable({
+						
+						order: [0, 'desc']
+					});
+				}
+			})
+		}
 		
 		// Check Notification
 		checkNotification();
@@ -756,6 +850,14 @@
         		let table3 = $("#table3").DataTable().rows({search: 'applied'}).data();
         		for(var i = 0; i < table3.length; i++) {
         			data.push(table3[i]);
+        		}
+        		isValidReport = true;
+        		break;
+			case "referralSlip":
+        		keyword = inputElements[2].value;
+        		let table4 = $("#table4").DataTable().rows({search: 'applied'}).data();
+        		for(var i = 0; i < table4.length; i++) {
+        			data.push(table4[i]);
         		}
         		isValidReport = true;
         		break;

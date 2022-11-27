@@ -3,7 +3,7 @@
 	session_start();
 
 	$response = array();
-	$reports = array("incidentReport", "consultationReport", "acceptanceSlip");
+	$reports = array("incidentReport", "consultationReport", "acceptanceSlip", "referralSlip");
 	$report = NULL;
 
 	// Validate POST data
@@ -71,6 +71,12 @@
 			$statement = "SELECT `ar`.`id`, `ar`.`title`, `ar`.`date_reported`, `ar`.`name_student`, `ar`.`allow_class`, `ar`.`allow_phone`, `ar`.`student_violation`, `ar`.`created_at`, `ar`.`updated_at`, `u`.`name`, `u`.`email` FROM `acceptance_reports` `ar` INNER JOIN `users` `u` ON `ar`.`uid` = `u`.`id` WHERE `ar`.`deleted` != :in_active";
 			$parameters = array('in_active' => 0);
 			break;
+		case "referralSlip":
+			$prefix = "`ar`.";
+			$statement = "SELECT `ar`.`id`, `ar`.`title`, `ar`.`created_at`, `ar`.`student_fName`, `ar`.`student_lName`, `ar`.`course`, `ar`.`ryear`, `ar`.`reason`, `ar`.`incident_description`, `u`.`updated_at` FROM `referral_reports`'ar' WHERE `ar`.`deleted` != :in_active";
+			// $statement = "SELECT * FROM `referral_reports` 'ar' WHERE `ar`.`deleted` != :in_active";
+			$parameters = array('in_active' => 0);
+			break;
 	}
 	$semester = NULL;
 	$yearStart = NULL;
@@ -129,7 +135,7 @@
     	//Page header
 	    public function Header() {
 	        // Logo
-	        $this->Image('storage/images/CvSU-logo.png', 90, 8, 20, 0, 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+	        $this->Image('storage/images/CvSU-logo2.png', 90, 8, 20, 0, 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
 	        // Title
 	        $this->Ln(1);
 	        $CenturyGothic = TCPDF_FONTS::addTTFfont('libraries/TCPDF/custom-fonts/CenturyGothic.ttf', 'TrueTypeUnicode', '', 96);
@@ -161,6 +167,10 @@
 			$pdf = new PdfTemplate('L', 'mm', 'A4');
 			$pdf->SetTitle('All Acceptance Slips - CEIT Guidance Record System');
 			break;
+		case 'referralSlip':
+			$pdf = new PdfTemplate('L', 'mm', 'A4');
+			$pdf->SetTitle('All Acceptance Slips - CEIT Guidance Record System');
+			break;
 	}
 
 	// set default header data
@@ -184,6 +194,9 @@
 			break;
 		case 'acceptanceSlip':
 			$pdf->WriteHTMLCell(190, 0, '', '', '<b>Acceptance Slip - CEIT Guidance Record System</b>', 0, 1);
+			break;
+		case 'referralSlip':
+			$pdf->WriteHTMLCell(190, 0, '', '', '<b>Referral Slip - CEIT Guidance Record System</b>', 0, 1);
 			break;
 	}
 
@@ -263,6 +276,26 @@
 		 		$pdf->WriteHTMLCell(60, 10, '', '', $value['student_violation'], 1, 0);
 				$pdf->WriteHTMLCell(25, 10, '', '', $value['allow_class'], 1, 0);
 				$pdf->WriteHTMLCell(25, 10, '', '', $value['allow_phone'], 1, 1);
+			}
+			break;
+		case 'referralSlip':
+			$pdf->WriteHTMLCell(10, 10, '', '', '<b>No</b>', 1, 0);
+			$pdf->WriteHTMLCell(60, 10, '', '', '<b>Title</b>', 1, 0);
+				$pdf->WriteHTMLCell(30, 10, '', '', '<b>Student First Name</b>', 1, 0);
+			$pdf->WriteHTMLCell(60, 10, '', '', '<b>Student LastName</b>', 1, 0);
+				$pdf->WriteHTMLCell(60, 10, '', '', '<b>Course</b>', 1, 0);
+			$pdf->WriteHTMLCell(25, 10, '', '', '<b>Year/b>', 1, 0);
+			$pdf->WriteHTMLCell(25, 10, '', '', '<b>Reason For Referral</b>', 1, 1);
+			$pdf->WriteHTMLCell(25, 10, '', '', '<b>Incident Description</b>', 1, 1);
+			foreach ($rows as $key => $value) {
+				$pdf->WriteHTMLCell(10, 10, '', '', ($key+1), 1, 0);
+				$pdf->WriteHTMLCell(60, 10, '', '', $value['title'], 1, 0);
+					$pdf->WriteHTMLCell(30, 10, '', '', $value['student_fName'], 1, 0);
+				$pdf->WriteHTMLCell(60, 10, '', '', $value['student_lName'], 1, 0);
+					$pdf->WriteHTMLCell(60, 10, '', '', $value['course'], 1, 0);
+				$pdf->WriteHTMLCell(25, 10, '', '', $value['year'], 1, 0);
+				$pdf->WriteHTMLCell(25, 10, '', '', $value['reason'], 1, 1);
+				$pdf->WriteHTMLCell(25, 10, '', '', $value['incident_description'], 1, 1);
 			}
 			break;
 	}

@@ -315,7 +315,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
 		$record = $admin->userConsultationRecords(1);
 
 		if($record){
-			$output .= '<table class="table table-striped table-bordered text-center" id="table6" style="width:100%">
+			$output .= '<table class="table table-striped table-bordered text-center" id="table2" style="width:100%">
  					<thead>
  						<tr>
 						 	<th data-visible="false">Record ID</th>
@@ -554,23 +554,37 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
 		}
 	}
 
-	// Display Acceptance Records
+	if(isset($_POST['action']) && $_POST['action'] == 'add_referral'){
+		$type 			= $admin->test_input($_POST['rectype']);
+		$title 			= $type;
+		$FirstName 		= $admin->test_input($_POST['first_name']);
+		$LastName  		= $admin->test_input($_POST['last_name']);
+		$course  		= $admin->test_input($_POST['refCourse']);
+		$year  			= $admin->test_input($_POST['refYear']);
+		$reason  		= $admin->test_input($_POST['refReason']);
+		$description 	= $admin->test_input($_POST['incident_desc']);
+
+		// $notedBy = $cname;
+		$admin->add_new_referral($title, $FirstName, $LastName, $course, $year, $reason, $description);
+		// $admin->notification($cid,  'admin', 'New Record Added');
+	}
+	// Display Referral Records
 	if(isset($_POST['action']) && $_POST['action'] == 'fetchReferral'){
 		$output = '';
 
 		$record = $admin->referralRecords(0);
 
 		if($record){
-			$output .= '<table class="table table-striped table-bordered text-center" id="table" style="width:100%">
+			$output .= '<table class="table table-striped table-bordered text-center mt-2" id="table4" style="width:100%">
  					<thead>
  						<tr>
  							<th data-visible="false">Record ID</th>
  							<th>Title</th>
 							<th>Date</th> 
  							<th>Student Name</th>
- 							<th>Student Violation </th>
- 							<th>Allow Class</th>
- 							<th>Allow Phone</th>
+							<th>Student Course & Year</th>
+ 							<th>Reason for Referral</th>
+ 							<th>Incident Description</th>
 							<th>Actions</th>
  						</tr>
  					</thead>
@@ -578,12 +592,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'adminLogin'){
  		foreach($record as $row){
  			$output .= '<tr>
  							<td>'.$row['id'].'</td>							
- 							<td>'.$row['title']. ' - ' .$row['name_student'].'</td>
- 							<td>'.$row['date_reported'].'</td>
- 							<td>'.$row['name_student'].'</td>
-							<td>'.$row['student_violation'].'</td>
-							<td>'.$row['allow_class'].'</td>
-							<td>'.$row['allow_phone'].'</td>
+ 							<td>'.$row['title']. ' - ' .$row['student_fName'].'</td>
+ 							<td>'.$row['created_at'].'</td>
+ 							<td>'.$row['student_fName']. ' ' .$row['student_lName'].'</td>
+							<td>'.$row['course'].' ' .$row['ryear'].'</td>
+							<td>'.$row['reason'].'</td>
+							<td>'.$row['incident_description'].'</td>
  							<td>
  								<a href="#" id="'.$row['id'].'" title="View Details" class="text-success AccinfoBtn"><i class="fas fa-info-circle fa-lg" data-toggle="modal" data-target="#viewAcceptanceModal"></i>&nbsp;</a>
  								<a href="#" id="'.$row['id'].'" title="Archive Acceptance" class="text-danger AccdeleteBtn"><i class="fas fa-folder-open fa-lg"></i></a>

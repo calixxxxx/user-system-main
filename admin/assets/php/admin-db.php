@@ -381,6 +381,17 @@ class Admin extends Database{
 		return $count;
 
 	}
+
+	// Add Referral Slip
+	public function add_new_referral($title, $FirstName, $LastName, $course, $year, $reason, $description){
+		$sql = "INSERT INTO referral_reports (uid, title, student_fName, student_lName, course, ryear, reason, incident_description) 
+		VALUES (:uid, :title, :student_fName, :student_lName, :course, :ryear, :reason, :incident_description)";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute(['uid'=>"Admin", 'title'=>$title, 'student_fName'=>$FirstName, 'student_lName'=>$LastName, 'course'=>$course, 'ryear'=>$year, 'reason'=>$reason, 'incident_description'=>$description]);
+
+		
+		return true;
+	}
 	// GENERATE SEMESTERS
 	public function GetSemesters($reportType = NULL) {
 		if(is_null($reportType)) {

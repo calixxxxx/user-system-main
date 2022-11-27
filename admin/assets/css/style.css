@@ -21,3 +21,9 @@ background-color: #33cc33;
 
 
 }
+
+#signature {
+    width: 100%;
+  border-bottom: 1px solid black;
+  height: 30px;
+}
