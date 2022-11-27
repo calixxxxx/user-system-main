@@ -42,7 +42,7 @@ INSERT INTO `acceptance_reports` (`id`, `uid`, `title`, `student_num`, `date_rep
 	(1, 11, '', '201516354', '2021-12-29', 'Clint Jeremy', '', 'Yes', 'No', NULL, '2022-01-07 17:56:08', '2022-01-07 17:56:08', 0),
 	(2, 11, 'Acceptance Slip', '201516354', '2022-01-11', 'Juan Dela Cruz', 'No ID', 'Yes', 'Yes', NULL, '2022-01-07 17:56:49', '2022-01-07 17:56:49', 1),
 	(3, 11, '', '201516354', '2021-12-28', 'dsadsad', '', 'dsadas', 'dsadsadas', NULL, '2022-01-07 17:57:33', '2022-01-07 17:57:33', 0),
-	(4, 11, 'Consultation Report', '201516354', '2022-01-05', 'Juan Luna', 'Not in proper uniform (civilian attire)', 'Yes', 'Yes', NULL, '2022-01-07 18:12:31', '2022-01-07 18:12:31', 1),
+	(4, 11, 'Consultation Report', '201516354', '2022-01-05', 'Juan Luna', 'Not in proper uniform (civilian attire)', 'Yes', 'Yes', NULL, '2022-01-07 18:12:31', '2022-01-07 18:12:31', 0),
 	(5, 11, 'Acceptance Slip', '201516354', '2022-02-07', 'De Los Reyes', 'No ID', 'dsadas', 'dsadsa', NULL, '2022-02-02 18:44:47', '2022-02-02 18:44:47', 0),
 	(6, 11, 'Acceptance Slip', '201516354', '2022-01-31', 'test', '', 'yes', 'yes', NULL, '2022-02-04 12:32:32', '2022-02-04 12:32:32', 0),
 	(8, 11, 'Acceptance Slip', '201516354', '2022-02-14', 'test3', '', 'dasd', 'adas', NULL, '2022-02-04 12:32:50', '2022-02-04 12:32:50', 0),
@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
   CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=604 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table db_user_system.notification: ~343 rows (approximately)
+-- Dumping data for table db_user_system.notification: ~342 rows (approximately)
 /*!40000 ALTER TABLE `notification` DISABLE KEYS */;
 INSERT INTO `notification` (`id`, `uid`, `type`, `message`, `created_at`) VALUES
 	(116, 17, 'user', 'How are you', '2021-05-25 17:04:43'),
@@ -592,6 +592,31 @@ INSERT INTO `record_types` (`id`, `record_type`) VALUES
 	(7, 'Excuse Letter - Violation');
 /*!40000 ALTER TABLE `record_types` ENABLE KEYS */;
 
+-- Dumping structure for table db_user_system.referral_reports
+CREATE TABLE IF NOT EXISTS `referral_reports` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` varchar(50) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `student_fName` varchar(255) DEFAULT NULL,
+  `student_lName` varchar(255) DEFAULT NULL,
+  `course` varchar(255) DEFAULT NULL,
+  `ryear` varchar(50) DEFAULT NULL,
+  `reason` varchar(255) DEFAULT NULL,
+  `incident_description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `deleted` int(11) DEFAULT 1,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table db_user_system.referral_reports: ~2 rows (approximately)
+/*!40000 ALTER TABLE `referral_reports` DISABLE KEYS */;
+INSERT INTO `referral_reports` (`id`, `uid`, `title`, `student_fName`, `student_lName`, `course`, `ryear`, `reason`, `incident_description`, `created_at`, `updated_at`, `deleted`) VALUES
+	(2, 'Admin', 'Referral', 'CLINT JEREMY', 'BARE', 'BSArchi', 'Second Year', 'Behaviour maladjustment', 'dsadsa', '2022-11-27 14:32:39', '2022-11-27 14:32:39', 1),
+	(3, 'Admin', 'Referral', 'CLINT JEREMY', 'BARE', '', '', '', 'dsadsa', '2022-11-27 14:33:16', '2022-11-27 14:33:16', 1),
+	(4, 'Admin', 'Referral', 'dsadsa', 'BARE', '', '', '', '', '2022-11-27 14:33:27', '2022-11-27 14:33:27', 1);
+/*!40000 ALTER TABLE `referral_reports` ENABLE KEYS */;
+
 -- Dumping structure for table db_user_system.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -632,7 +657,7 @@ CREATE TABLE IF NOT EXISTS `visitors` (
 -- Dumping data for table db_user_system.visitors: ~0 rows (approximately)
 /*!40000 ALTER TABLE `visitors` DISABLE KEYS */;
 INSERT INTO `visitors` (`id`, `hits`) VALUES
-	(0, 887);
+	(0, 889);
 /*!40000 ALTER TABLE `visitors` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
