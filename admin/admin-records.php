@@ -112,6 +112,11 @@
 							<input id="noted_by2" type="text" name="notedBy" class="form-control form-control-lg" placeholder="Enter Name" disabled></input>
 			 				</div>
 			 			</div>
+
+						 <div>
+							<label class="badge badge-success" style="font-weight: bold;font-size: 20px">Action Made:</label>
+							<input id="action_taken" type="text" name="action_taken" class="form-control form-control-lg" disabled></input>
+			 				</div>	
 					
 						<!-- <div class="form-group mt-4">
 							<input type="submit" name="editrecord" id="editRecordBtn" value="Update Record" class="btn btn-success btn-block btn-lg"></input>
@@ -237,7 +242,7 @@
 										<option value="No Action Yet" <?php if( $NoActionYet == 'No Action Yet'){echo 'selected';} ?>>No Action Yet</option>
 										<option value="For Endorsement" <?php if( $ForEndo == 'For Endorsement'){echo 'selected';} ?>>For Endorsement</option>
 										<option value="Counseled" <?php if( $Counseled == 'Counseled'){echo 'selected';} ?>>Counseled</option>
-									</select>
+							</select>
 			 				</div>	
 			 			</div>
 					
@@ -654,6 +659,7 @@
 					$("#desc_incident2").val(data.incident_description);
 					$("#reported_by2").val(data.reported_by);
 					$("#noted_by2").val(data.noted_by);
+					$("#action_taken").val(data.action_made);
 				}
 			});
 		});
